@@ -1,0 +1,7 @@
+<ul id="results">
+    <% @results.each do |result| %>
+    <li>
+        <%= link_to result.title, {:controller => :place, :action => :show, id: result.id}-%>
+    </li>
+    <% end %>
+</ul>

@@ -1,0 +1,24 @@
+<div class="placeContainer">
+    <div class="heading">
+        <h3><%=@place.name=%></h3>
+        <p class="location"><%=@place.location=%></p>
+        <p  class="openingHoursHeading">Opening Hours</p>
+    </div>
+    <div class="body">
+        <ul class="openingHoursMain">
+            <% @place.opening_hours.each do |day, openingHours| %>
+            <li class="openingHours">
+                <p><%=day%></p>
+                <ul class="openingHoursNested">
+                    <% openingHours.values.each do |value| %>
+                        <% value.each do |item| %>
+                            <li class="openingHoursNested"><%=item%></li>
+                        <% end %>
+                    <% end %>
+                </ul>
+                <div class="clear"></div>
+            <% end %>
+            </li>
+        </ul>
+    </div>
+</div>
