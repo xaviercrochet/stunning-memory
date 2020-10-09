@@ -8,6 +8,11 @@ module PlaceService
 
     def self.query(id)
         endpoint = ENV['LOCALSEARCH_API_URL']
+        if endpoint.nil?
+            puts "Eenvironment variable LOCALSEARCH_API is not defined"
+            return nil
+        end
+
         begin
             response = RestClient::Request.new(
                 :method => :get,
