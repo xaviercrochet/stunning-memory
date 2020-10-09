@@ -1,6 +1,3 @@
-require_relative "../services/place/place_service"
-
-
 class PlaceController < ApplicationController
     def show
         puts "ENV: "+   ENV["LOCALSEARCH_API_URL"]

@@ -15,7 +15,10 @@ module PlaceService
                 :verify_ssl => false
             ).execute
         rescue RestClient::ExceptionWithResponse => e
+            puts e.to_s
             e.response
+        rescue Errno::ECONNREFUSED => e
+            puts "local search api not available: " + e.to_s
         end
         if not response.blank?
             result = JSON.parse(response.to_str)
