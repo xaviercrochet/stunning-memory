@@ -1,6 +1,5 @@
 class PlaceController < ApplicationController
     def show
-        puts "ENV: "+   ENV["LOCALSEARCH_API_URL"]
         @id = params[:id]
         if @id.blank?
             render file: "#{Rails.root}/public/404", layout: true, status: :not_found
