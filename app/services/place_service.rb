@@ -60,25 +60,48 @@ module PlaceService
             puts "local search api not available: " + e.to_s
         end
         if not response.blank?
-            result = JSON.parse(response.to_str)
-            place = PlaceService::Place.new
-            place.name = result["Name"]
-            place.location = result["Location"]
-            result["OpeningHours"].each do | openingHourJSON |
-                openingHour = PlaceService::OpeningHour.new
-                openingHourJSON["Days"].each do | dayJSON|
-                    openingHour.days << dayJSON
-                end
-
-                openingHourJSON["Hours"].each do | hourJSON|
-                    openingHour.hours << hourJSON
-                end
-                place.opening_hours << openingHour
-
-            end
-            puts place
-            
-            return place
+            begin
+                place = parseJSON(response) 
+            rescue => error
+                puts "cannot parse response JSON: " + error.to_s
+            end          
         end
+    end
+
+    def self.parseJSON(response)
+        result = JSON.parse(response.to_str)
+        place = PlaceService::Place.new
+        place.name = result["Name"]
+        place.location = result["Location"]
+        openingHours = result["OpeningHours"]
+        
+        if not openingHours.nil?
+            openingHours.each do | openingHourJSON |
+                openingHour = parseOpeningHourJSON(openingHourJSON)
+                if not openingHour.nil? then
+                    place.opening_hours << openingHour
+                end
+            end
+        end
+        return place
+    end
+
+    def self.parseOpeningHourJSON(openingHourJSON)
+        openingHour = PlaceService::OpeningHour.new
+        days = openingHourJSON["Days"]
+        hours = openingHourJSON["Hours"]
+       
+        if not hours.nil?
+            openingHourJSON["Hours"].each do | hourJSON|
+                openingHour.hours << hourJSON
+            end
+        end
+
+        if not days.nil?
+            openingHourJSON["Days"].each do | dayJSON|
+                openingHour.days << dayJSON
+            end
+        end
+        return openingHour
     end
 end
