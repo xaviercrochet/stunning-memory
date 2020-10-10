@@ -6,19 +6,23 @@
     </div>
     <div class="body">
         <ul class="openingHoursMain">
-            <% @place.opening_hours.each do |day, openingHours| %>
-            <li class="openingHours">
-                <p><%=day%></p>
-                <ul class="openingHoursNested">
-                    <% openingHours.values.each do |value| %>
-                        <% value.each do |item| %>
-                            <li class="openingHoursNested"><%=item%></li>
-                        <% end %>
-                    <% end %>
-                </ul>
-                <div class="clear"></div>
+            <% @place.opening_hours.each do |openingHour| %>
+                <div class="openingHourContent <%= 'open' if openingHour.isToday? %>">               
+                    <li class="openingHours">
+                        <div class="openingHourCol">
+                            <p class="openingHourHeading"><%=openingHour.getDaysHeading%></p>
+                        </div>
+                        <div class="openingHourCol">
+                            <ul class="openingHoursNested">
+                                <% openingHour.hours.each do |hour| %>
+                                    <li class="openingHoursNested"><%=hour%></li>
+                                <% end %>
+                            </ul>
+                        </div>
+                       <%# <div class="clear"></div> %>
+                    </li>
+                </div>
             <% end %>
-            </li>
         </ul>
     </div>
 </div>

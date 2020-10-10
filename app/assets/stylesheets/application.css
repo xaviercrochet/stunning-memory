@@ -28,7 +28,6 @@
  }
  
  ul.openingHoursNested {
-     float: right;
      font-weight: lighter;
  }
 
@@ -41,13 +40,38 @@
  }
 
  .placeContainer {
-     width: 20%;
-     padding-left: 10px;
+     width: 25%;
+     padding-left: 15px;
      padding-right: 15px;
-     border-radius: 5%;
+     padding-bottom: 10px;
+     padding-top: 10px;
+     border-radius:4px;
+     box-shadow: 0 0 10px black;
      margin: auto;
-     border-style: solid;
-     border-color: lightblue;
-     border-left-width: 5px;
      box-sizing: border-box;
+
+ }
+
+ .openingHourContent:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.openingHourContent {
+    padding: 5px;
+}
+
+ .openingHourHeading {
+    margin-top: 0px;
+ }
+
+ .openingHourCol {
+    float : left;
+     width: 50%;
+ }
+
+ .open {
+     color: green;
+     border:dotted green 3px;
  }
