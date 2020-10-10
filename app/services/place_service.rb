@@ -61,19 +61,19 @@ module PlaceService
         end
         if not response.blank?
             begin
-                place = parseJSON(response) 
+                json = JSON.parse(response.to_str)
+                place = parsePlaceJSON(json) 
             rescue => error
                 puts "cannot parse response JSON: " + error.to_s
             end          
         end
     end
 
-    def self.parseJSON(response)
-        result = JSON.parse(response.to_str)
+    def self.parsePlaceJSON(placeJSON)
         place = PlaceService::Place.new
-        place.name = result["Name"]
-        place.location = result["Location"]
-        openingHours = result["OpeningHours"]
+        place.name = placeJSON["Name"]
+        place.location = placeJSON["Location"]
+        openingHours = placeJSON["OpeningHours"]
         
         if not openingHours.nil?
             openingHours.each do | openingHourJSON |
