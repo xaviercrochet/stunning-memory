@@ -39,6 +39,13 @@
      font-weight: lighter;
  }
 
+ .closed {
+     color: red;
+     font-weight: bold;
+     padding-left: 40px;
+     margin-top: 0px;
+ }
+
  .placeContainer {
      width: 25%;
      padding-left: 15px;
@@ -73,5 +80,6 @@
 
  .open {
      color: green;
+     border-radius: 4px;
      border:dotted green 3px;
  }

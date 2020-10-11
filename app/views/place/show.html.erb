@@ -13,13 +13,15 @@
                             <p class="openingHourHeading"><%=openingHour.getDaysHeading%></p>
                         </div>
                         <div class="openingHourCol">
+                            <%-if openingHour.isClosed? %>
+                                <p class="closed">closed</p>
+                            <% end %>
                             <ul class="openingHoursNested">
                                 <% openingHour.hours.each do |hour| %>
                                     <li class="openingHoursNested"><%=hour%></li>
                                 <% end %>
                             </ul>
                         </div>
-                       <%# <div class="clear"></div> %>
                     </li>
                 </div>
             <% end %>
