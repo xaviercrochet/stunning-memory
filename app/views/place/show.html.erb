@@ -5,20 +5,37 @@
         <p  class="openingHoursHeading">Opening Hours</p>
     </div>
     <div class="body">
+        <%- if @place.has_open_next? %>
+            <p class="openNextHeading">Open Next</p>
+
+            <div class="openNext">               
+                <div class="openingHourCol">
+                    <p class="openingHourHeading"><%=@place.open_next.getDaysHeading%></p>
+                </div>
+                <div class="openingHourCol">
+                    <ul class="openingHoursNested">
+                        <% @place.open_next.hours_ranges.each do |hours_range| %>
+                            <li class="openingHoursNested <%= 'openNow' if hours_range.is_open_now %>"><%=hours_range.getRange%></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        
+        <% end %>
         <ul class="openingHoursMain">
-            <% @place.opening_hours.each do |openingHour| %>
-                <div class="openingHourContent <%= 'open' if openingHour.isToday? %>">               
+            <% @place.schedules.each do |schedule| %>
+                <div class="openingHourContent <%= 'open' if schedule.isToday? %>">               
                     <li class="openingHours">
                         <div class="openingHourCol">
-                            <p class="openingHourHeading"><%=openingHour.getDaysHeading%></p>
+                            <p class="openingHourHeading"><%=schedule.getDaysHeading%></p>
                         </div>
                         <div class="openingHourCol">
-                            <%-if openingHour.isClosed? %>
+                            <%-if schedule.isClosed? %>
                                 <p class="closed">closed</p>
                             <% end %>
                             <ul class="openingHoursNested">
-                                <% openingHour.hours.each do |hour| %>
-                                    <li class="openingHoursNested"><%=hour%></li>
+                                <% schedule.hours_ranges.each do |hours_range| %>
+                                    <li class="openingHoursNested <%= 'openNow' if hours_range.is_open_now %>"><%=hours_range.getRange%></li>
                                 <% end %>
                             </ul>
                         </div>

@@ -48,21 +48,4 @@ class PlaceServiceTest < ActiveSupport::TestCase
         place = PlaceService.query(id)     
         assert_nil(place)
     end
-
-    test "parse opening hour JSON" do
-        openingHour = PlaceService.parseOpeningHourJSON(openingHourJSON)
-        assert_not_nil(openingHourJSON)
-        assert_equal(openingHourJSON["Days"].length, openingHour.days.length)
-        assert_equal(openingHourJSON["Hours"].length, openingHour.hours.length)
-    end
-
-    test "parse place JSON" do
-        place = PlaceService.parsePlaceJSON(placeJSON)
-        assert_not_nil(openingHourJSON)
-        assert_equal(placeJSON["OpeningHours"].length, place.opening_hours.length)
-        assert_equal(placeJSON["Name"] , place.name)
-        assert_equal(placeJSON["Location"], place.location)
-    end
-
-
 end
